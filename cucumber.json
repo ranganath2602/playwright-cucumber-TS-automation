@@ -3,11 +3,12 @@
         "formatOptions":{
             "snippetInterface": "async-await"
         },
-        "paths":["src/test/features/trello-lists.feature"],
+        "paths":["src/test/features/*.feature"],
         "publishQuite": true,
         "dryRun": false,
         "require":[
-            "src/test/steps/*.ts"
+            "src/test/steps/*.ts",
+            "src/test/steps/shared/*.ts"
         ],
         "requireModule":[
             "ts-node/register"
