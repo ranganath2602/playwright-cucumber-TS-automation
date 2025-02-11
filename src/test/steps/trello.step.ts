@@ -4,6 +4,7 @@ import { expect, request, APIResponse, APIRequestContext } from '@playwright/tes
 const key = 'cd8ce8f5f3ef878d11927d43cc325cae'; // Replace with your API key
 const token = 'ATTA3714dedd8931ba02ec988baf032354b7c6fe209c69c5c66e1ec96df9576039dc05C9E21D'; // Replace with your API token
 const trelloBoardId = '67a0a41a86ba72b993e1e6c2';
+const trelloBoardListId = '67a0a41a86ba72b993e1e719';
 
 let context: APIRequestContext;
 let response: APIResponse;
@@ -102,7 +103,7 @@ Then('the response should contain a list with id and name', async () => {
     expect(res.name).toBe(listName);
 })
 
-Given('Send POST request to Create a new list as {string}', async function (listName:string) {
+Given('Send POST request to Create a new list as {string}', async function (listName: string) {
     response = await context.post(`/1/lists?key=${key}&token=${token}`, {
         params: {
             'idBoard': trelloBoardId,
@@ -111,7 +112,7 @@ Given('Send POST request to Create a new list as {string}', async function (list
     })
 });
 
-Given('Send PUT request to update the list name to {string}', async(listName:string)=>{
+Given('Send PUT request to update the list name to {string}', async (listName: string) => {
     const responseBody = await response.json();
     const listId = responseBody.id;
 
@@ -122,7 +123,7 @@ Given('Send PUT request to update the list name to {string}', async(listName:str
     })
 })
 
-Given('Send PUT request to archive a list',async()=>{
+Given('Send PUT request to archive a list', async () => {
     const responseBody = await response.json();
     const listId = responseBody.id;
 
@@ -133,10 +134,57 @@ Given('Send PUT request to archive a list',async()=>{
     })
 })
 
-Then('the response should contain list id property and name as {string}', async function (listName:string) {
+Then('the response should contain list id property and name as {string}', async function (listName: string) {
     const res = await response.json();
     expect(res).toHaveProperty('id');
     expect(res).toHaveProperty('name', listName);
+});
+
+Given('Send Post Request to create a new card in the list as {string}', async function (cardName) {
+    response = await context.post(`/1/cards?key=${key}&token=${token}`, {
+        params: {
+            'name': cardName,
+            'idList': trelloBoardListId
+        }
+    })
+});
+
+Given('Send Get Request to retrieve the card from the list', async function () {
+    const res = await response.json();
+    const cardId = res.id;
+
+    response = await context.get(`/1/cards/${cardId}?key=${key}&token=${token}`, {
+        'headers': {
+            'Accept': 'application/json'
+        }
+    })
+});
+
+Then('expect the response to contain id property and name property as {string}', async function (cardName) {
+    const res = await response.json();
+    expect(res).toHaveProperty('id');
+    expect(res).toHaveProperty('name', cardName)
+});
+
+Given('Send Put Request to update the name of card from the list as {string}', async function (updatedCardName) {
+    const res = await response.json();
+    const cardId = res.id;
+
+    response = await context.put(`/1/cards/${cardId}?key=${key}&token=${token}`, {
+        'params': {
+            'name': updatedCardName
+        },
+        'headers': {
+            'Accept': 'application/json'
+        }
+    })
+});
+
+Given('Send Delete Request to delete the card from the list', async function () {
+    const res = await response.json();
+    const cardId = res.id;
+
+    response = await context.delete(`/1/cards/${cardId}?key=${key}&token=${token}`)
 });
 
 Then('the response status code should be {int}', async function (statusCode) {
