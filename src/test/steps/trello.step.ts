@@ -1,10 +1,6 @@
 import { Given, When, Then, setDefaultTimeout, BeforeAll } from '@cucumber/cucumber';
 import { expect, request, APIResponse, APIRequestContext } from '@playwright/test';
-
-const key = 'cd8ce8f5f3ef878d11927d43cc325cae'; // Replace with your API key
-const token = 'ATTA3714dedd8931ba02ec988baf032354b7c6fe209c69c5c66e1ec96df9576039dc05C9E21D'; // Replace with your API token
-const trelloBoardId = '67a0a41a86ba72b993e1e6c2';
-const trelloBoardListId = '67a0a41a86ba72b993e1e719';
+import { key, token, trelloBoardId, trelloBoardListId} from '../utils/constants';
 
 let context: APIRequestContext;
 let response: APIResponse;
