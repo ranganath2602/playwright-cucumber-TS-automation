@@ -2,9 +2,10 @@ name: Playwright Cucumber Tests
 
 on:
   push:
-    branches: [ "main" ] # or your default branch
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -17,10 +18,17 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20' # or your preferred Node.js version
+        node-version: '20'
 
     - name: Install dependencies
       run: npm install
+
+    - name: Set Environment Variables
+      run: |
+        echo "TRELLO_API_KEY=${{ secrets.TRELLO_API_KEY }}" >> $GITHUB_ENV
+        echo "TRELLO_API_TOKEN=${{ secrets.TRELLO_API_TOKEN }}" >> $GITHUB_ENV
+        echo "TRELLO_BOARD_ID=${{ secrets.TRELLO_BOARD_ID }}" >> $GITHUB_ENV
+        echo "TRELLO_BOARD_LIST_ID=${{ secrets.TRELLO_BOARD_LIST_ID }}" >> $GITHUB_ENV
 
     - name: Run Playwright Cucumber tests
       run: npm test
@@ -37,7 +45,7 @@ jobs:
       if: always()
       with:
         name: cucumber-report
-        path: cucumber-json/ #or whatever you have configured for the cucumber json report.
+        path: cucumber-json/
 
     - name: Upload Playwright traces
       uses: actions/upload-artifact@v4
