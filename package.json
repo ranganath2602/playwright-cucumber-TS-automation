@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js features/**/*.feature --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar"
+     "test": "cucumber-js features/**/*.feature --require-module ts-node/register --require ./src/steps/**/*.ts --format progress --format summary --format json:reports/cucumber-report.json"
   },
   "keywords": [],
   "author": "",
