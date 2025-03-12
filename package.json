@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "test": "npm run test:ui",
     "test:crud": "cucumber-js features/**/*.api.feature --tags @crud --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
     "test:ui": "cucumber-js features/**/*.ui.feature --tags @ui --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar"
   },
