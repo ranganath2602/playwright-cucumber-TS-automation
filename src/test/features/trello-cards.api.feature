@@ -1,3 +1,4 @@
+@crud
 Feature: Trello Cards
 
 Scenario: Create a new Cards

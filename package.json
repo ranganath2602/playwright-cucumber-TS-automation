@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js features/**/*.feature --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar"
+    "test:crud": "cucumber-js features/**/*.api.feature --tags @crud --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
+    "test:ui": "cucumber-js features/**/*.ui.feature --tags @ui --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar"
   },
   "keywords": [],
   "author": "",

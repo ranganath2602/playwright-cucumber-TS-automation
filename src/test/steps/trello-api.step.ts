@@ -1,6 +1,6 @@
 import { Given, When, Then, setDefaultTimeout, BeforeAll } from '@cucumber/cucumber';
 import { expect, request, APIResponse, APIRequestContext } from '@playwright/test';
-import { key, token, trelloBoardId, trelloBoardListId} from '../utils/constants';
+import { key, token, trelloBoardId, trelloBoardListId, trelloApiHost} from '../utils/constants';
 
 let context: APIRequestContext;
 let response: APIResponse;
@@ -11,7 +11,7 @@ setDefaultTimeout(60000); // Set a default timeout of 60 seconds
 
 BeforeAll(async () => {
     context = await request.newContext({
-        baseURL: 'https://api.trello.com',
+        baseURL: trelloApiHost,
     });
 })
 
