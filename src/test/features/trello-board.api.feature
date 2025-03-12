@@ -1,3 +1,4 @@
+@crud
 Feature: Trello Board
 
 Scenario: Create a board
