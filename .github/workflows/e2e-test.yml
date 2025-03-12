@@ -50,7 +50,7 @@ jobs:
         echo "TRELLO_LOGIN_PASSWORD=${{secrets.TRELLO_LOGIN_PASSWORD}}" >> $GITHUB_ENV
 
     - name: Run Playwright Cucumber tests
-      run: npm test
+      run: npm run ${{ github.event.inputs.test_type }}
 
     - name: Upload Playwright test results
       uses: actions/upload-artifact@v4
