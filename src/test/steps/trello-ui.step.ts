@@ -10,7 +10,7 @@ let page: Page;
 
 Given('Visit the URL', async () => {
   // Launch the browser (headless false for debugging)
-  browser = await chromium.launch({ headless: false });
+  browser = await chromium.launch({ headless: true });
   page = await browser.newPage();
 
   // Navigate to Trello and click the login button
