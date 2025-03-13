@@ -41,7 +41,7 @@ jobs:
       run: npm install
 
     - name: Install Playwright Browsers
-      run: npx playwright install
+      run: npx playwright install chromium
 
     - name: Set Environment Variables
       run: |

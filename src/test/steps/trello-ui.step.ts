@@ -1,6 +1,7 @@
-import { Given, Then, setDefaultTimeout } from '@cucumber/cucumber';
+import { AfterAll, Given, Then, setDefaultTimeout } from '@cucumber/cucumber';
 import { chromium, Browser, Page } from 'playwright';
 import { trelloLoginEmail, trelloLoginPassword } from '../utils/constants';
+import { expect } from '@playwright/test';
 
 setDefaultTimeout(60 * 1000);
 
@@ -9,7 +10,7 @@ let page: Page;
 
 Given('Visit the URL', async () => {
   // Launch the browser (headless false for debugging)
-  browser = await chromium.launch({ headless: true });
+  browser = await chromium.launch({ headless: false });
   page = await browser.newPage();
 
   // Navigate to Trello and click the login button
@@ -31,5 +32,22 @@ Then('Click on login btn', async () => {
   await page.click('#login-submit');
 
   // Clean up: close the browser after the test
-  await browser.close();
+//   await browser.close();
 });
+
+Then('Close the {string} board', async(boardName)=>{
+    await page.locator('div.LinesEllipsis').getByText(boardName).click();
+    await page.locator("span[class='nch-icon A3PtEe1rGIm_yL J2CpPoHYfZ2U6i fAvkXZrzkeHLoc']").click();
+    await page.locator("div.S1YMKJFPn9WNGk").getByText('Close board').click();
+    await page.getByTestId("popover-close-board-confirm").click();
+    await page.getByTestId("close-board-delete-board-button").click();
+    await page.getByTestId("close-board-delete-board-confirm-button").click();
+    await expect(
+        page.locator('div.LinesEllipsis').filter({ hasText: boardName })
+      ).toHaveCount(0);
+})
+
+AfterAll(async()=>{
+    // Clean up: close the browser after the test
+  await browser.close();
+})
