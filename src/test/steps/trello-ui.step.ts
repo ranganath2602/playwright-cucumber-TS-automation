@@ -30,9 +30,6 @@ Then('Enter the credentials', async () => {
 Then('Click on login btn', async () => {
   // Click the final login button
   await page.click('#login-submit');
-
-  // Clean up: close the browser after the test
-//   await browser.close();
 });
 
 Then('Close the {string} board', async(boardName)=>{
