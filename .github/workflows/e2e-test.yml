@@ -17,7 +17,7 @@ on:
       test_type:
         description: 'Select test type'
         required: true
-        default: 'test:ui'
+        default: 'test:crud'
         type: choice
         options:
           - test:ui
