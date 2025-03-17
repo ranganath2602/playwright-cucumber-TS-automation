@@ -20,7 +20,7 @@ on:
         default: 'test:crud'
         type: choice
         options:
-          - test:ui
+          - test:ui:ci
           - test:crud
 
 jobs:

@@ -10,7 +10,7 @@ let page: Page;
 
 Given('Visit the URL', async () => {
     // Launch the browser (headless false for debugging)
-    browser = await chromium.launch();
+    browser = await chromium.launch({headless:false});
     page = await browser.newPage();
 
     // Navigate to Trello and click the login button
@@ -30,6 +30,7 @@ Then('Enter the credentials', async () => {
 Then('Click on login btn', async () => {
     // Click the final login button
     await page.click('#login-submit');
+    await page.locator('span.css-178ag6o').getByText('Accept all').click();
 });
 
 Then('Close the {string} board', async (boardName) => {
