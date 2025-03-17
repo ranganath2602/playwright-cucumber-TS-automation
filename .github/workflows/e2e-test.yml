@@ -25,7 +25,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     environment: ${{ github.event.inputs.environment }}
 
     steps:
