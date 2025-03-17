@@ -3,36 +3,38 @@ import { chromium, Browser, Page } from 'playwright';
 import { trelloLoginEmail, trelloLoginPassword } from '../utils/constants';
 import { expect } from '@playwright/test';
 
-setDefaultTimeout(60 * 1000);
+//setDefaultTimeout(60 * 1000);
 
 let browser: Browser;
 let page: Page;
 
 Given('Visit the URL', async () => {
-  // Launch the browser (headless false for debugging)
-  browser = await chromium.launch({ headless: false });
-  page = await browser.newPage();
+    // Launch the browser (headless false for debugging)
+    browser = await chromium.launch();
+    page = await browser.newPage();
 
-  // Navigate to Trello and click the login button
-  await page.goto('https://trello.com/');
-  await page.click('.Buttonsstyles__Button-sc-1jwidxo-0.kTwZBr');
+    // Navigate to Trello and click the login button
+    await page.goto('https://trello.com/');
+    await page.click('.Buttonsstyles__Button-sc-1jwidxo-0.kTwZBr');
 });
 
 Then('Enter the credentials', async () => {
-  // Fill in the email and click continue
-  await page.fill('#username', trelloLoginEmail);
-  await page.click('#login-submit');
-  
-  // Fill in the password
-  await page.fill('#password', trelloLoginPassword);
+    // Fill in the email and click continue
+    await page.fill('#username', trelloLoginEmail);
+    await page.click('#login-submit');
+
+    // Fill in the password
+    await page.fill('#password', trelloLoginPassword);
 });
 
 Then('Click on login btn', async () => {
-  // Click the final login button
-  await page.click('#login-submit');
+    // Click the final login button
+    await page.click('#login-submit');
 });
 
-Then('Close the {string} board', async(boardName)=>{
+Then('Close the {string} board', async (boardName) => {
+    await page.waitForTimeout(5000);
+    await page.screenshot({ path: 'failure.png' });
     await page.locator('div.LinesEllipsis').getByText(boardName).click();
     await page.locator("span[class='nch-icon A3PtEe1rGIm_yL J2CpPoHYfZ2U6i fAvkXZrzkeHLoc']").click();
     await page.locator("div.S1YMKJFPn9WNGk").getByText('Close board').click();
@@ -41,10 +43,10 @@ Then('Close the {string} board', async(boardName)=>{
     await page.getByTestId("close-board-delete-board-confirm-button").click();
     await expect(
         page.locator('div.LinesEllipsis').filter({ hasText: boardName })
-      ).toHaveCount(0);
+    ).toHaveCount(0);
 })
 
-AfterAll(async()=>{
+AfterAll(async () => {
     // Clean up: close the browser after the test
-  await browser.close();
+    await browser.close();
 })
