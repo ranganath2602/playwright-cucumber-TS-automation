@@ -2,15 +2,31 @@ import { AfterAll, Given, Then, setDefaultTimeout } from '@cucumber/cucumber';
 import { chromium, Browser, Page } from 'playwright';
 import { trelloLoginEmail, trelloLoginPassword } from '../utils/constants';
 import { expect } from '@playwright/test';
+import * as readline from 'readline';
 
 //setDefaultTimeout(60 * 1000);
 
 let browser: Browser;
 let page: Page;
 
+async function getUserInput(): Promise<string> {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+  
+    return new Promise((resolve) => {
+      rl.question('Please enter your input: ', (answer) => {
+        rl.close();
+        resolve(answer);
+      });
+    });
+  }
+
+
 Given('Visit the URL', async () => {
     // Launch the browser (headless false for debugging)
-    browser = await chromium.launch({headless:false});
+    browser = await chromium.launch({headless:true});
     page = await browser.newPage();
 
     // Navigate to Trello and click the login button
@@ -30,7 +46,12 @@ Then('Enter the credentials', async () => {
 Then('Click on login btn', async () => {
     // Click the final login button
     await page.click('#login-submit');
-    await page.locator('span.css-178ag6o').getByText('Accept all').click();
+    await page.waitForTimeout(2000);
+    const otp = await getUserInput();
+    console.log(`The OTP input value is: ${otp}`);
+    await page.locator('div[data-testid="otp-input-index-0-container"] input').click();
+    await page.keyboard.type(otp)
+    await page.locator('div.css-17nf42q').getByTestId('otp-input-index-0-container').type(otp);
 });
 
 Then('Close the {string} board', async (boardName) => {
