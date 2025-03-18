@@ -22,6 +22,7 @@ on:
         options:
           - test:ui:ci
           - test:crud
+          - test:ui
 
 jobs:
   test:
