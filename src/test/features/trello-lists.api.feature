@@ -1,4 +1,3 @@
-@crud
 Feature: Trello Lists
 
 Scenario: Get Lists on a board

@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:ui",
+    "test": "npm run test",
     "test:crud": "cucumber-js features/**/*.api.feature --tags @crud --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
-    "test:ui": "cucumber-js features/**/*.ui.feature --tags @ui --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar"
+    "test:ui": "cucumber-js features/**/*.ui.feature --tags @ui --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
+    "test:ui:ci": "xvfb-run cucumber-js features/**/*.ui.feature --tags @ui --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,10 @@
     "@playwright/test": "^1.49.1",
     "@types/node": "^22.10.9",
     "dotenv": "^16.4.7",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "prompt-sync": "^4.2.0"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
   }
 }
