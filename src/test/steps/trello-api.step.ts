@@ -24,7 +24,6 @@ Given('Send Get Request to {string}', async function (endpoint) {
 });
 
 Given('Send POST Request to create a new board as {string}', async function (boardName) {
-    console.log(key,token)
     response = await context.post(`/1/boards/?key=${key}&token=${token}`, {
         headers: {
         },
