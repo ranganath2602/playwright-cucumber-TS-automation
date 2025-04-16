@@ -1,5 +1,6 @@
 Feature: Login Feature
 
+@ui
 Scenario: Log in to Trello account
 Given Login to your Trello Account
 Then Close the 'trello-qa-board' board
