@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test",
-    "test:crud": "cucumber-js features/**/*.api.feature --tags @crud --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
-    "test:ui": "cucumber-js features/**/*.ui.feature --tags @ui --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
+    "test:crud": "cucumber-js features/**/*.api.feature --tags @crud --import config.ts --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
+    "test:ui": "cucumber-js features/**/*.ui.feature --tags @ui --import config.ts --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
     "test:ui:ci": "xvfb-run cucumber-js features/**/*.ui.feature --tags @ui --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar"
   },
   "keywords": [],
