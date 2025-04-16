@@ -21,5 +21,7 @@ Then the response status code should be 200
 
 Scenario: Close the boards
 Given Login to your Trello Account
+When Switch to Project Workspace
 Then Close the 'trello-qa-board' board
+When Switch to Project Workspace
 Then Close the 'playwright-auto-qa-board' board
