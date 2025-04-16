@@ -7,3 +7,5 @@ node_modules/
 /playwright/.cache/
 .env
 .env_sample
+src/test/utils/totp.js
+failure.png

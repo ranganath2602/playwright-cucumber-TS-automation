@@ -1,9 +1,11 @@
-@ui
 Feature: Login Feature
 
+@ui
 Scenario: Log in to Trello account
-Given Visit the URL
-Then Enter the credentials
-Then Click on login btn
+Given Login to your Trello Account
 Then Close the 'trello-qa-board' board
 Then Close the 'playwright-auto-qa-board' board
+
+Scenario: Clear the boards
+Given Login to your Trello Account
+Then Clear the closed boards
