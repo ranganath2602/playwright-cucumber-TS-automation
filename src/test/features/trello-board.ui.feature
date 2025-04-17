@@ -34,11 +34,13 @@ Given Login to your Trello Account
 When Switch to Project Workspace
 Then Complete the checklist items
 
+@ui
 Scenario: Upload an attachment
 Given Login to your Trello Account
 When Switch to Project Workspace
 Then Upload attachments to task
 
+@ui
 Scenario: Delete an attachment
 Given Login to your Trello Account
 When Switch to Project Workspace
