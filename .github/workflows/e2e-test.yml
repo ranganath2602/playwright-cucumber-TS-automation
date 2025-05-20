@@ -55,7 +55,7 @@ jobs:
         echo "TRELLO_2FA_SETUP_KEY=${{secrets.TRELLO_2FA_SETUP_KEY}}" >> $GITHUB_ENV
 
     - name: Run Playwright Cucumber tests
-      run: npm run ${{ github.event.inputs.test_type }}
+      run: npm run test:ui:ci
 
     - name: Upload Playwright test results
       uses: actions/upload-artifact@v4
