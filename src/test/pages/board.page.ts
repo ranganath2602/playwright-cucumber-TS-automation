@@ -113,6 +113,7 @@ export class BoardPage extends BasePage {
     }
 
     async switchToProjectWorkspace() {
+        console.log(await this.page.url());
         await this.workspaceSwitcher.waitFor({ state: 'visible' });
         await this.workspaceSwitcher.click();
         await this.workspaceSwitcherTile.click();

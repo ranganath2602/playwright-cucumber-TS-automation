@@ -42,7 +42,6 @@ export class LoginPage extends BasePage {
         await this.page?.getByRole('textbox', { name: '-digit verification code' }).click();
         const totp = authenticator.generate(trello2FASetupKey);
         await this.page?.getByRole('textbox', { name: '-digit verification code' }).fill(totp);
-        await this.page.waitForTimeout(2000);
     }
 
     public async clearClosedBoards() {
