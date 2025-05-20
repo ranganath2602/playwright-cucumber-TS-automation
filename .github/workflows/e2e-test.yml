@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
-    # No manual inputs needed for auto-trigger on push/pull_request
       environment:
         description: 'Select environment'
         required: true
