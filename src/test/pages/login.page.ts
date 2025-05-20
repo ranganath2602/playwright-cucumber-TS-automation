@@ -38,12 +38,12 @@ export class LoginPage extends BasePage {
         await this.page.fill(this.passwordInput, trelloLoginPassword);
         await this.page.click(this.submitLoginBtn);
 
-        await this.page?.waitForTimeout(2000);
+        await this.page?.waitForTimeout(1000);
         await this.page?.getByRole('textbox', { name: '-digit verification code' }).click();
         // Wait for a short period to ensure TOTP is valid for the current window
         await this.page.waitForTimeout(1500);
         const totp = authenticator.generate(trello2FASetupKey);
-        console.log('TOTP:', totp);
+        //console.log('TOTP:', totp);
         await this.page?.getByRole('textbox', { name: '-digit verification code' }).fill(totp);
     }
 
