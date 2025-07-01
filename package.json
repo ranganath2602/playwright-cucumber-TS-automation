@@ -13,10 +13,10 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@cucumber/cucumber": "^11.2.0",
-    "@playwright/test": "^1.49.1",
-    "@types/node": "^22.10.9",
-    "dotenv": "^16.4.7",
+    "@cucumber/cucumber": "^11.3.0",
+    "@playwright/test": "^1.53.2",
+    "@types/node": "^22.15.34",
+    "dotenv": "^16.6.1",
     "prompt-sync": "^4.2.0",
     "ts-node": "^10.9.2"
   },
