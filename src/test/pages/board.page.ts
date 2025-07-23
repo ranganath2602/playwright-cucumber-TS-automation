@@ -9,7 +9,7 @@ export class BoardPage extends BasePage {
     readonly boardTitleInput: Locator;
     readonly createBoardSubmitButton: Locator;
     readonly workspaceSwitcher: Locator;
-    readonly workspaceSwitcherTile: Locator;
+    //readonly workspaceSwitcherTile: Locator;
 
     // List Locators
     readonly listComposerButton: Locator;
@@ -34,6 +34,7 @@ export class BoardPage extends BasePage {
     readonly descriptionButton: Locator;
     readonly descriptionInput: Locator;
     readonly descriptionSaveButton: Locator;
+    readonly addToCardButton: Locator;
     readonly attachmentButton: Locator;
     readonly chooseFileButton: Locator;
     readonly deleteAttachmentButton: Locator;
@@ -53,15 +54,15 @@ export class BoardPage extends BasePage {
 
     constructor(page: Page, context: BrowserContext) {
         super(page, context);
-        
+
         // Initialize Board Creation Locators
         this.createBoardButton = page.locator('span').getByText('Create new board');
         this.backgroundButton = page.locator('.nch-icon.A3PtEe1rGIm_yL.neoUEAwI0GETBQ.LCBkZyEuShKn0r');
         this.photosButton = page.locator('header').filter({ hasText: 'PhotosSee more' }).getByRole('button');
         this.boardTitleInput = page.getByTestId('create-board-title-input');
         this.createBoardSubmitButton = page.getByTestId('create-board-submit-button');
-        this.workspaceSwitcher = page.getByTestId('workspace-switcher');
-        this.workspaceSwitcherTile = page.getByTestId('workspace-switcher-popover-tile');
+        this.workspaceSwitcher = page.getByTestId('home-team-boards-tab');
+        //this.workspaceSwitcherTile = page.getByTestId('workspace-switcher-popover-tile');
 
         // Initialize List Locators
         this.listComposerButton = page.getByTestId('list-composer-button');
@@ -86,8 +87,9 @@ export class BoardPage extends BasePage {
         this.descriptionButton = page.getByTestId('description-button');
         this.descriptionInput = page.getByLabel('Main content area, start');
         this.descriptionSaveButton = page.getByTestId('description-save-button');
+        this.addToCardButton = page.getByTestId('card-back-add-to-card-button');
         this.attachmentButton = page.getByTestId('card-back-attachment-button');
-        this.chooseFileButton = page.getByText('Choose a file');
+        this.chooseFileButton = page.getByRole('button', { name: 'Choose a file' });
         this.deleteAttachmentButton = page.getByTestId('delete-attachment');
         this.confirmDeleteButton = page.getByTestId('popover-confirm-button');
         this.moveCardButton = page.locator('button.WTF5k9ZC8MHUNi');
@@ -114,7 +116,7 @@ export class BoardPage extends BasePage {
 
     async switchToProjectWorkspace() {
         await this.workspaceSwitcher.click();
-        await this.workspaceSwitcherTile.click();
+        //await this.workspaceSwitcherTile.click();
     }
 
     async createLists(listNames: string[]) {
@@ -179,9 +181,11 @@ export class BoardPage extends BasePage {
 
     async uploadAttachment(cardName: string, filePath: string) {
         await this.page.getByRole('link', { name: cardName }).click();
+        await this.addToCardButton.click();
         await this.attachmentButton.click();
-        await this.chooseFileButton.click();
-        await this.chooseFileButton.setInputFiles(filePath);
+        //await this.chooseFileButton.click();
+        //await this.chooseFileButton.setInputFiles(filePath);
+        await this.page.setInputFiles('#card-attachment-file-picker', filePath);
     }
 
     async deleteAttachment(cardName: string) {
@@ -215,13 +219,14 @@ export class BoardPage extends BasePage {
     }
 
     async switchToBoard(boardName: string): Promise<void> {
-        await this.page.locator('div.LinesEllipsis').getByText(boardName).click();
+        //await this.page.locator('div.LinesEllipsis').getByText(boardName).click();
+        await this.page.getByRole('link', { name: `${boardName}` }).click();
     }
 
     async clearClosedBoards(): Promise<void> {
         await this.viewClosedBoardsBtn.click();
         await this.page.waitForTimeout(2000);
-        for(const deleteElement of await this.deleteBoardButton.all()){
+        for (const deleteElement of await this.deleteBoardButton.all()) {
             await deleteElement.click();
             await this.confirmDeleteBoardButton.click();
         }
