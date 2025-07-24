@@ -21,7 +21,7 @@ Then('Create the lists', async function (this: ICustomWorld) {
 });
 
 When('Switch to Project Workspace', async function (this: ICustomWorld) {
-    await this.page.waitForURL('**/boards', { timeout: 10000 });
+    await this.pagesObj?.waitForURL('**/boards', { timeout: 10000 });
     await this.pagesObj?.boardPage.switchToProjectWorkspace();
     await this.pagesObj?.boardPage.switchToBoard("NUS WayGate");
 });
