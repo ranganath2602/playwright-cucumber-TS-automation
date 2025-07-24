@@ -148,7 +148,7 @@ export class BoardPage extends BasePage {
     }
 
     async createChecklist(cardName: string, checklistTitle: string, items: string[]) {
-        await this.page.getByRole('link', { name: cardName }).click();
+        await this.page.getByTestId('card-name').filter({ hasText: cardName }).click();
         await this.descriptionButton.click();
         await this.descriptionInput.fill('Trello Task Description');
         await this.descriptionSaveButton.click();
@@ -165,7 +165,7 @@ export class BoardPage extends BasePage {
     }
 
     async completeChecklistItems(cardName: string, items: string[]) {
-        await this.page.getByRole('link', { name: cardName }).click();
+        await this.page.getByTestId('card-name').filter({ hasText: cardName }).click();
         for (const item of items) {
             const checklistLocator = this.page.locator('li').filter({ hasText: item }).getByTestId('clickable-checkbox');
             if (checklistLocator) {
@@ -180,7 +180,7 @@ export class BoardPage extends BasePage {
     }
 
     async uploadAttachment(cardName: string, filePath: string) {
-        await this.page.getByRole('link', { name: cardName }).click();
+        await this.page.getByTestId('card-name').filter({ hasText: cardName }).click();
         await this.addToCardButton.click();
         await this.attachmentButton.click();
         //await this.chooseFileButton.click();
@@ -189,7 +189,7 @@ export class BoardPage extends BasePage {
     }
 
     async deleteAttachment(cardName: string) {
-        await this.page.getByRole('link', { name: cardName }).click();
+        await this.page.getByTestId('card-name').filter({ hasText: cardName }).click();
         await this.page.getByTestId('attachment-thumbnail').click();
         await this.deleteAttachmentButton.click();
         await this.confirmDeleteButton.click();
@@ -197,7 +197,7 @@ export class BoardPage extends BasePage {
     }
 
     async moveCardToList(cardName: string, targetBoardName: string, targetListName: string) {
-        await this.page.getByRole('link', { name: cardName }).click();
+        await this.page.getByTestId('card-name').filter({ hasText: cardName }).click();
         await this.moveCardButton.click();
         await this.moveCardBoardSelect.click();
         await this.page.getByText(targetBoardName).click();
