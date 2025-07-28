@@ -21,6 +21,7 @@ Then('Create the lists', async function (this: ICustomWorld) {
 });
 
 When('Switch to Project Workspace', async function (this: ICustomWorld) {
+    await new Promise(resolve => setTimeout(resolve, 3000));
     await this.page?.screenshot({ path: 'screenshots/failure.png' });
     await this.page?.waitForURL('**/boards', { timeout: 10000 });
     await this.pagesObj?.boardPage.switchToProjectWorkspace();
