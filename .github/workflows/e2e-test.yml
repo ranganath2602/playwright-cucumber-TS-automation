@@ -56,6 +56,13 @@ jobs:
     - name: Run Playwright Cucumber tests
       run: npm run ${{ github.event.inputs.test_type }}
 
+    - name: Upload Error Screenshots
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: error-screenshots
+        path: screenshots/*.png
+    
     - name: Upload Playwright test results
       uses: actions/upload-artifact@v4
       if: always()
