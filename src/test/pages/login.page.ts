@@ -48,7 +48,6 @@ export class LoginPage extends BasePage {
     await this.page.fill(this.passwordInput, trelloLoginPassword);
     await this.page.click(this.submitLoginBtn);
 
-    await this.page?.waitForTimeout(7500);
     await this.page
       ?.getByRole("textbox", { name: "-digit verification code" })
       .click();
