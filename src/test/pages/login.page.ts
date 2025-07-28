@@ -55,7 +55,7 @@ export class LoginPage extends BasePage {
       const errorLocator = this.page?.locator('#otpCode-uid1-error');
 
 // Check if the error is visible
-if (await errorLocator.isVisible()) {
+while (await errorLocator.isVisible()) {
   const errorText = await errorLocator.innerText();
 
   if (errorText.includes('You entered an incorrect verification code.')) {
@@ -65,6 +65,8 @@ if (await errorLocator.isVisible()) {
     await this.page
       ?.getByRole("textbox", { name: "-digit verification code" })
       .fill(authenticator.generate(trello2FASetupKey));
+  }else {
+    break; // error is visible, but not the one we care about
   }
 }
   }
