@@ -52,6 +52,7 @@ export class LoginPage extends BasePage {
     await this.page
       ?.getByRole("textbox", { name: "-digit verification code" })
       .click();
+    await this.page?.waitForTimeout(7500);
     const totp = authenticator.generate(trello2FASetupKey);
     await this.page
       ?.getByRole("textbox", { name: "-digit verification code" })
