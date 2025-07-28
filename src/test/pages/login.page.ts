@@ -52,23 +52,23 @@ export class LoginPage extends BasePage {
     await this.page
       ?.getByRole("textbox", { name: "-digit verification code" })
       .fill(totp);
-      const errorLocator = this.page?.locator('#otpCode-uid1-error');
+    const errorLocator = this.page?.locator('#otpCode-uid1-error');
 
-// Check if the error is visible
-while (await errorLocator.isVisible()) {
-  const errorText = await errorLocator.innerText();
+    // Check if the error is visible
+    while (await errorLocator.isVisible()) {
+      const errorText = await errorLocator.innerText();
 
-  if (errorText.includes('You entered an incorrect verification code.')) {
-    console.log('⚠️ Incorrect verification code detected — refreshing page.');
-    await this.page?.reload();
-  //const totp = authenticator.generate(trello2FASetupKey);
-    await this.page
-      ?.getByRole("textbox", { name: "-digit verification code" })
-      .fill(authenticator.generate(trello2FASetupKey));
-  }else {
-    break; // error is visible, but not the one we care about
-  }
-}
+      if (errorText.includes('You entered an incorrect verification code.')) {
+        console.log('⚠️ Incorrect verification code detected — refreshing page.');
+        await this.page?.reload();
+        //const totp = authenticator.generate(trello2FASetupKey);
+        await this.page
+          ?.getByRole("textbox", { name: "-digit verification code" })
+          .fill(authenticator.generate(trello2FASetupKey));
+      } else {
+        break; // error is visible, but not the one we care about
+      }
+    }
   }
 
   public async clearClosedBoards() {
