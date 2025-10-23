@@ -10,6 +10,7 @@ export class BoardPage extends BasePage {
     readonly createBoardSubmitButton: Locator;
     readonly workspaceSwitcher: Locator;
     //readonly workspaceSwitcherTile: Locator;
+    readonly downIcon: Locator;
 
     // List Locators
     readonly listComposerButton: Locator;
@@ -61,6 +62,7 @@ export class BoardPage extends BasePage {
         this.photosButton = page.locator('header').filter({ hasText: 'PhotosSee more' }).getByRole('button');
         this.boardTitleInput = page.getByTestId('create-board-title-input');
         this.createBoardSubmitButton = page.getByTestId('create-board-submit-button');
+        this.downIcon = page.getByTestId('DownIcon');
         this.workspaceSwitcher = page.getByTestId('home-team-boards-tab');
         //this.workspaceSwitcherTile = page.getByTestId('workspace-switcher-popover-tile');
 
@@ -115,6 +117,8 @@ export class BoardPage extends BasePage {
     }
 
     async switchToProjectWorkspace() {
+        await this.page?.screenshot({ path: 'screenshots/failure.png' });
+        await this.downIcon.click();
         await this.workspaceSwitcher.click();
         //await this.workspaceSwitcherTile.click();
     }

@@ -5,7 +5,7 @@
   "scripts": {
     "test": "npm run test",
     "test:crud": "cucumber-js features/**/*.api.feature --tags @crud --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
-    "test:ui": "cucumber-js features/**/*.ui.feature --tags @ui --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar",
+    "test:ui": "cucumber-js src/test/features/*.ui.feature --tags @ui --require-module ts-node/register --require src/test/steps/*.ts --format progress-bar",
     "test:ui:ci": "xvfb-run cucumber-js features/**/*.ui.feature --tags @ui --require-module ts-node/register --require ./src/steps/**/*.ts --format progress-bar"
   },
   "keywords": [],
