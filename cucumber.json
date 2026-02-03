@@ -3,7 +3,7 @@
         "formatOptions":{
             "snippetInterface": "async-await"
         },
-        "paths":["src/test/features/*.feature"],
+        "features": ["src/test/features/*.feature"],
         "publishQuite": true,
         "dryRun": false,
         "require":[

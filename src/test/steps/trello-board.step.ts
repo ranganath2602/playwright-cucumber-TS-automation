@@ -21,6 +21,8 @@ Then('Create the lists', async function (this: ICustomWorld) {
 });
 
 When('Switch to Project Workspace', async function (this: ICustomWorld) {
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    await this.page?.screenshot({ path: 'screenshots/failure.png' });
     await this.pagesObj?.boardPage.switchToProjectWorkspace();
     await this.pagesObj?.boardPage.switchToBoard("NUS WayGate");
 });
@@ -67,7 +69,7 @@ Then('Complete the checklist items', async function (this: ICustomWorld) {
 Then('Upload attachments to task', async function (this: ICustomWorld) {
     await this.pagesObj?.boardPage.uploadAttachment('[DEVOPS] Task 60', 'failure.png');
     await this.page?.getByText('Success').click();
-    expect(await this.page?.locator('span.QMKgZFIlTLiEJN').innerText()).toBe('Success');
+    expect(await this.page?.getByTestId('attachment-thumbnail-name').innerText()).toBe('failure.png');
 });
 
 Then('Delete the attachment from task', async function (this: ICustomWorld) {
