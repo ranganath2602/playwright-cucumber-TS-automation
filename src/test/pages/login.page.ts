@@ -69,6 +69,8 @@ export class LoginPage extends BasePage {
         break; // error is visible, but not the one we care about
       }
     }
+
+    await this.page?.getByText('Log in', { exact: true }).click();
   }
 
   public async clearClosedBoards() {

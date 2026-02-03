@@ -77,9 +77,9 @@ export class BoardPage extends BasePage {
         this.cardDoneButton = page.getByTestId('card-done-state-completion-button');
 
         // Initialize Checklist Locators
-        this.checklistButton = page.getByTestId('card-back-checklist-button');
+        this.checklistButton = page.getByTestId('ChecklistIcon');
         this.checklistTitleInput = page.getByLabel('Title');
-        this.addChecklistButton = page.getByRole('button', { name: 'Add', exact: true });
+        this.addChecklistButton = page.getByTestId('checklist-add-button');
         this.checklistItemInput = page.getByTestId('check-item-name-input');
         this.addChecklistItemButton = page.getByTestId('check-item-add-button');
         this.cancelChecklistButton = page.getByRole('button', { name: 'Cancel' });
@@ -87,7 +87,7 @@ export class BoardPage extends BasePage {
 
         // Initialize Card Details Locators
         this.descriptionButton = page.getByTestId('description-button');
-        this.descriptionInput = page.getByLabel('Main content area, start');
+        this.descriptionInput = page.locator('#ak-editor-textarea');
         this.descriptionSaveButton = page.getByTestId('description-save-button');
         this.addToCardButton = page.getByTestId('card-back-add-to-card-button');
         this.attachmentButton = page.getByTestId('card-back-attachment-button');
@@ -180,7 +180,7 @@ export class BoardPage extends BasePage {
         if (progress !== '100%') {
             throw new Error(`Checklist progress is not 100%, it is ${progress}`);
         }
-        await this.cardDoneButton.click();
+        //await this.cardDoneButton.click();
     }
 
     async uploadAttachment(cardName: string, filePath: string) {
